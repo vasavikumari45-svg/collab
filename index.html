@@ -5,23 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>K-Beauty Product Dashboard</title>
 
-  <!-- Elegant font -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Stylish font -->
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
-      font-family: "Quicksand", sans-serif;
-      background: linear-gradient(to right, #fff0f6, #fce4ec);
+      font-family: "Nanum Myeongjo", serif;
+      background: linear-gradient(to right, #fff5f8, #fce4ec);
       color: #333;
     }
     header {
       text-align: center;
       padding: 2rem;
-      font-size: 2rem;
-      font-weight: 600;
-      color: #ad1457;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #b71c1c;
       background: #f8bbd0;
+      letter-spacing: 2px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     .search-box {
@@ -31,9 +32,144 @@
     .search-box input {
       width: 60%;
       padding: .8rem;
-      border-radius: 20px;
+      border-radius: 25px;
       border: 2px solid #f48fb1;
       font-size: 1rem;
       outline: none;
       text-align: center;
-      transition: 0.
+      transition: 0.3s;
+      background: #fff;
+    }
+    .search-box input:focus {
+      border-color: #c2185b;
+      box-shadow: 0 0 8px #f06292;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid #f8bbd0;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .card-content {
+      padding: 1rem;
+      text-align: center;
+    }
+    .card-content h3 {
+      margin: 0 0 0.8rem 0;
+      color: #880e4f;
+    }
+    .card-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .card-content li {
+      background: #fce4ec;
+      margin: 0.3rem 0;
+      padding: 0.5rem;
+      border-radius: 6px;
+      color: #333;
+      font-size: 0.9rem;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      background: #f8bbd0;
+      font-size: .9rem;
+      color: #4a148c;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <header>K-Beauty Product Dashboard</header>
+
+  <div class="search-box">
+    <input type="text" id="search" placeholder="🔍 Search brand or product...">
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>© 2025 K-Beauty Dashboard | Glow with Confidence ✨</footer>
+
+  <script>
+    const products = [
+      {
+        name: "Innisfree",
+        collections: ["Green Tea Seed Serum", "Jeju Volcanic Pore Clay Mask", "Orchid Enriched Cream"],
+        image: "https://images.innisfree.com/upload/kr_ko/product/2023/05/19/123456789.jpg"
+      },
+      {
+        name: "Laneige",
+        collections: ["Lip Sleeping Mask", "Water Bank Cream", "Cream Skin Toner"],
+        image: "https://images.laneige.com/resource/images/product/2024/01/lip-sleeping-mask.jpg"
+      },
+      {
+        name: "Etude House",
+        collections: ["Dear Darling Tint", "Moistfull Collagen Cream", "Play Color Eyes Palette"],
+        image: "https://img.etude.com/kr/en/resources/img/product/etude-lip-tint.jpg"
+      },
+      {
+        name: "Sulwhasoo",
+        collections: ["First Care Activating Serum", "Concentrated Ginseng Renewing Cream", "Essential Balancing Water"],
+        image: "https://www.sulwhasoo.com/kr/en/resources/img/product/sulwhasoo-serum.jpg"
+      },
+      {
+        name: "Dr. Jart+",
+        collections: ["Cicapair Tiger Grass Cream", "Ceramidin Cream", "Dermask Soothing Hydra Solution"],
+        image: "https://us.drjart.com/cdn/shop/files/cicapair-tiger-grass-cream.jpg"
+      }
+    ];
+
+    const grid = document.getElementById("grid");
+    const searchInput = document.getElementById("search");
+
+    function renderGrid(filter="") {
+      grid.innerHTML = "";
+      products.forEach(product => {
+        if (
+          product.name.toLowerCase().includes(filter.toLowerCase()) ||
+          product.collections.some(c => c.toLowerCase().includes(filter.toLowerCase()))
+        ) {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <div class="card-content">
+              <h3>${product.name}</h3>
+              <ul>${product.collections.map(c => `<li>${c}</li>`).join("")}</ul>
+            </div>
+          `;
+          grid.appendChild(card);
+        }
+      });
+    }
+
+    searchInput.addEventListener("input", e => {
+      renderGrid(e.target.value);
+    });
+
+    renderGrid();
+  </script>
+</body>
+</html>
