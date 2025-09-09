@@ -3,21 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manga Artists Timeline Dashboard</title>
+  <title>Manga Artists Neon Dashboard</title>
+
+  <!-- Futuristic font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      font-family: "Orbitron", sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       color: #fff;
     }
     header {
       text-align: center;
       padding: 1.5rem;
-      font-size: 2rem;
-      font-weight: bold;
-      background: rgba(0,0,0,0.4);
-      letter-spacing: 1px;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #00f7ff;
     }
     .search-box {
       text-align: center;
@@ -26,15 +30,18 @@
     .search-box input {
       width: 60%;
       padding: .8rem;
-      border-radius: 20px;
+      border-radius: 25px;
       border: none;
       font-size: 1rem;
       outline: none;
       text-align: center;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      box-shadow: 0 0 10px #00f7ff;
     }
     .timeline {
       position: relative;
-      max-width: 900px;
+      max-width: 1000px;
       margin: 2rem auto;
       padding: 2rem 0;
     }
@@ -42,29 +49,30 @@
       content: '';
       position: absolute;
       width: 6px;
-      background-color: #fff;
+      background: linear-gradient(#ff00ff, #00f7ff);
       top: 0;
       bottom: 0;
       left: 50%;
       margin-left: -3px;
+      box-shadow: 0 0 20px #00f7ff;
     }
     .timeline-item {
       padding: 1rem 2rem;
       position: relative;
-      background: inherit;
       width: 50%;
     }
     .timeline-item::after {
       content: '';
       position: absolute;
-      width: 25px;
-      height: 25px;
-      right: -13px;
-      background-color: #fff;
-      border: 4px solid #00a8ff;
-      top: 15px;
+      width: 20px;
+      height: 20px;
+      right: -10px;
+      background: #ff00ff;
+      border: 4px solid #00f7ff;
+      top: 20px;
       border-radius: 50%;
       z-index: 1;
+      box-shadow: 0 0 10px #ff00ff, 0 0 20px #00f7ff;
     }
     .left {
       left: 0;
@@ -73,41 +81,53 @@
       left: 50%;
     }
     .right::after {
-      left: -13px;
+      left: -10px;
     }
     .content {
       padding: 1.5rem;
-      background-color: rgba(255,255,255,0.1);
-      position: relative;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border: 2px solid #ff00ff;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00f7ff;
+      transform: skew(-3deg);
+      transition: transform 0.3s;
+    }
+    .content:hover {
+      transform: skew(0deg) scale(1.05);
     }
     .content h3 {
       margin-top: 0;
-      color: #ffd32a;
+      color: #00f7ff;
+      text-shadow: 0 0 5px #00f7ff, 0 0 15px #ff00ff;
     }
     .content img {
       width: 100%;
-      border-radius: 10px;
+      border-radius: 12px;
       margin: 0.8rem 0;
       max-height: 250px;
       object-fit: cover;
+      box-shadow: 0 0 15px #ff00ff;
     }
     .content ul {
       list-style: none;
       padding: 0;
     }
     .content li {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,0,255,0.1);
       margin: .3rem 0;
       padding: .5rem;
       border-radius: 6px;
+      border: 1px solid #00f7ff;
+      text-shadow: 0 0 5px #00f7ff;
     }
     footer {
       text-align: center;
       padding: 1rem;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       font-size: .9rem;
+      color: #aaa;
+      letter-spacing: 1px;
     }
     @media screen and (max-width: 768px) {
       .timeline::after {
@@ -128,42 +148,42 @@
   </style>
 </head>
 <body>
-  <header>Manga Artists Timeline Dashboard</header>
+  <header>Manga Artists Neon Dashboard</header>
 
   <div class="search-box">
-    <input type="text" id="search" placeholder="🔍 Search by artist or manga...">
+    <input type="text" id="search" placeholder="🔍 Search artist or manga...">
   </div>
 
   <div class="timeline" id="timeline"></div>
 
-  <footer>© 2025 Manga Dashboard | Timeline Layout</footer>
+  <footer>© 2025 Manga Dashboard | Cyberpunk Timeline</footer>
 
   <script>
     const artists = [
       {
         name: "Eiichiro Oda",
         collections: ["One Piece", "Wanted!", "Romance Dawn"],
-        image: "https://cdn.myanimelist.net/images/anime/6/73245.jpg" // One Piece
+        image: "https://cdn.myanimelist.net/images/anime/6/73245.jpg"
       },
       {
         name: "Masashi Kishimoto",
         collections: ["Naruto", "Boruto", "Mario"],
-        image: "https://cdn.myanimelist.net/images/anime/13/17405.jpg" // Naruto
+        image: "https://cdn.myanimelist.net/images/anime/13/17405.jpg"
       },
       {
         name: "Hajime Isayama",
         collections: ["Attack on Titan", "Heart Break One", "Orz"],
-        image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg" // Attack on Titan
+        image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg"
       },
       {
         name: "Rumiko Takahashi",
         collections: ["Inuyasha", "Ranma ½", "Maison Ikkoku"],
-        image: "https://cdn.myanimelist.net/images/anime/5/15887.jpg" // Inuyasha
+        image: "https://cdn.myanimelist.net/images/anime/5/15887.jpg"
       },
       {
         name: "Kentaro Miura",
         collections: ["Berserk", "Gigantomakhia"],
-        image: "https://cdn.myanimelist.net/images/anime/10/73274.jpg" // Berserk
+        image: "https://cdn.myanimelist.net/images/anime/10/73274.jpg"
       }
     ];
 
