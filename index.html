@@ -1,126 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manga Artists Dashboard</title>
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      background: #1e1e2f;
+      color: #fff;
     }
-    /* Sidebar */
-    .sidebar {
-      background: #2f3640;
-      color: white;
-      width: 260px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar h2 {
-      margin-top: 0;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
+    header {
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
       text-align: center;
     }
-    .artist {
-      padding: .6rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background .2s;
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
     }
-    .artist:hover, .artist.active {
-      background: #40739e;
+    .search-container {
+      margin: 1rem auto;
+      text-align: center;
     }
-    /* Main content */
-    .content {
-      flex: 1;
-      background: #f5f6fa;
-      padding: 2rem;
-      overflow-y: auto;
+    .search-container input {
+      width: 60%;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
     }
-    .artist-title {
-      font-size: 1.6rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
-    .collection-list {
+    .dashboard {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
     }
-    .collection {
-      background: white;
+    .card {
+      background: #2c2c3e;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-body {
       padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      font-size: 1.1rem;
     }
-    .collection:hover {
-      transform: translateY(-4px);
-      transition: 0.2s;
+    .artist-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: .5rem;
+      color: #ffdd59;
+    }
+    .collections {
+      font-size: 0.95rem;
+      color: #dcdde1;
     }
     footer {
       text-align: center;
-      padding: 0.8rem;
-      background: #dcdde1;
+      padding: 1rem;
+      background: #111;
+      color: #aaa;
       font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Manga Artists</h2>
-    <div id="artistList"></div>
+  <header>
+    <h1>Manga Artists & Collections</h1>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="search" placeholder="🔍 Search artists or manga...">
   </div>
 
-  <div class="content">
-    <div id="artistDetails">
-      <p>Select an artist from the left panel to view their collections.</p>
-    </div>
-    <footer>© 2025 Manga Dashboard | Sidebar Layout</footer>
-  </div>
+  <div class="dashboard" id="dashboard"></div>
+
+  <footer>
+    © 2025 Manga Dashboard | Stylish Card Layout
+  </footer>
 
   <script>
     const artists = [
-      { name: "Eiichiro Oda", collections: ["One Piece", "Wanted!", "Romance Dawn"] },
-      { name: "Masashi Kishimoto", collections: ["Naruto", "Boruto (Supervision)", "Mario"] },
-      { name: "Hajime Isayama", collections: ["Attack on Titan", "Heart Break One", "Orz"] },
-      { name: "Rumiko Takahashi", collections: ["Inuyasha", "Ranma ½", "Maison Ikkoku", "Urusei Yatsura"] },
-      { name: "Kentaro Miura", collections: ["Berserk", "Gigantomakhia"] }
+      {
+        name: "Eiichiro Oda",
+        collections: ["One Piece", "Wanted!", "Romance Dawn"],
+        image: "https://upload.wikimedia.org/wikipedia/en/2/29/OnePieceVol61Cover.jpg"
+      },
+      {
+        name: "Masashi Kishimoto",
+        collections: ["Naruto", "Boruto", "Mario"],
+        image: "https://upload.wikimedia.org/wikipedia/en/9/94/NarutoCoverTankobon1.jpg"
+      },
+      {
+        name: "Hajime Isayama",
+        collections: ["Attack on Titan", "Heart Break One", "Orz"],
+        image: "https://upload.wikimedia.org/wikipedia/en/8/8b/Shingeki_no_Kyojin_manga_volume_1.jpg"
+      },
+      {
+        name: "Rumiko Takahashi",
+        collections: ["Inuyasha", "Ranma ½", "Maison Ikkoku"],
+        image: "https://upload.wikimedia.org/wikipedia/en/8/82/InuYasha1_GN.jpg"
+      },
+      {
+        name: "Kentaro Miura",
+        collections: ["Berserk", "Gigantomakhia"],
+        image: "https://upload.wikimedia.org/wikipedia/en/0/0a/BerserkVolume1.jpg"
+      }
     ];
 
-    const artistList = document.getElementById("artistList");
-    const artistDetails = document.getElementById("artistDetails");
+    const dashboard = document.getElementById("dashboard");
+    const searchInput = document.getElementById("search");
 
-    function renderSidebar() {
-      artists.forEach((artist, index) => {
-        const div = document.createElement("div");
-        div.className = "artist";
-        div.textContent = artist.name;
-        div.addEventListener("click", () => showArtist(index, div));
-        artistList.appendChild(div);
+    function renderCards(filter="") {
+      dashboard.innerHTML = "";
+      artists.forEach(artist => {
+        if (
+          artist.name.toLowerCase().includes(filter.toLowerCase()) ||
+          artist.collections.some(c => c.toLowerCase().includes(filter.toLowerCase()))
+        ) {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${artist.image}" alt="${artist.name}">
+            <div class="card-body">
+              <div class="artist-name">${artist.name}</div>
+              <div class="collections">${artist.collections.join(", ")}</div>
+            </div>
+          `;
+          dashboard.appendChild(card);
+        }
       });
     }
 
-    function showArtist(index, clickedDiv) {
-      document.querySelectorAll(".artist").forEach(el => el.classList.remove("active"));
-      clickedDiv.classList.add("active");
-      const artist = artists[index];
-      artistDetails.innerHTML = `
-        <div class="artist-title">${artist.name}</div>
-        <div class="collection-list">
-          ${artist.collections.map(c => `<div class="collection">${c}</div>`).join("")}
-        </div>
-      `;
-    }
+    searchInput.addEventListener("input", e => {
+      renderCards(e.target.value);
+    });
 
-    renderSidebar();
+    renderCards();
   </script>
 </body>
 </html>
