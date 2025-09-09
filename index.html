@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>K-Beauty Luxe Dashboard</title>
+  <title>K-Beauty Dashboard</title>
 
   <!-- Korean-inspired font -->
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
@@ -12,14 +12,14 @@
     body {
       margin: 0;
       font-family: "Nanum Myeongjo", serif;
-      background: linear-gradient(to right, #fff0f5, #fce4ec);
+      background: #fff0f6;
       color: #333;
     }
 
     /* Hero Section */
     .hero {
       background: url("https://i.ibb.co/6Ph2jcn/kbeauty-banner.jpg") center/cover no-repeat;
-      height: 320px;
+      height: 300px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -35,78 +35,53 @@
     }
     .hero h1 {
       position: relative;
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       z-index: 2;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
     }
 
-    /* Filter buttons */
-    .filters {
-      text-align: center;
-      margin: 2rem 0;
-    }
-    .filters button {
-      padding: 0.7rem 1.5rem;
-      margin: 0.3rem;
-      border: none;
-      border-radius: 25px;
-      background: #f8bbd0;
-      color: #880e4f;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .filters button:hover {
-      background: #ec407a;
-      color: white;
-    }
-
-    /* Product Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    .card {
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.9);
+    /* Brand Cards */
+    .brand {
+      background: white;
+      margin: 2rem auto;
+      padding: 1.5rem;
       border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
+      max-width: 1100px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-    }
-    .card img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-    }
-    .card-content {
-      padding: 1rem;
+    .brand h2 {
+      margin-top: 0;
+      color: #ad1457;
       text-align: center;
     }
-    .card-content h3 {
-      margin: 0.5rem 0;
-      color: #ad1457;
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
     }
-    .card-content ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .card-content li {
+    .product {
       background: #fce4ec;
-      margin: 0.3rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
       padding: 0.5rem;
-      border-radius: 6px;
+      transition: transform 0.3s;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .product p {
+      margin: 0.5rem 0 0;
       font-size: 0.9rem;
-      color: #333;
+      font-weight: bold;
+      color: #4a148c;
     }
 
     footer {
@@ -116,88 +91,110 @@
       background: #f8bbd0;
       font-size: .9rem;
       color: #4a148c;
-      letter-spacing: 1px;
     }
   </style>
 </head>
 <body>
   <!-- Hero Banner -->
   <div class="hero">
-    <h1>K-Beauty Luxe Collection ✨</h1>
+    <h1>K-Beauty Dashboard 🌸</h1>
   </div>
 
-  <!-- Filters -->
-  <div class="filters">
-    <button onclick="filterProducts('all')">All</button>
-    <button onclick="filterProducts('Skincare')">Skincare</button>
-    <button onclick="filterProducts('Makeup')">Makeup</button>
-    <button onclick="filterProducts('Lip Care')">Lip Care</button>
+  <!-- Innisfree -->
+  <div class="brand">
+    <h2>Innisfree</h2>
+    <div class="products">
+      <div class="product">
+        <img src="https://www.innisfree.com/kr/ko/resources/img/product/2023/greentea-serum.jpg" alt="Green Tea Serum">
+        <p>Green Tea Seed Serum</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/s3Wqf0r/innisfree-volcanic.jpg" alt="Volcanic Mask">
+        <p>Volcanic Clay Mask</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/6t0Q1Bb/innisfree-orchid.jpg" alt="Orchid Cream">
+        <p>Orchid Enriched Cream</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Product Grid -->
-  <div class="grid" id="grid"></div>
+  <!-- Laneige -->
+  <div class="brand">
+    <h2>Laneige</h2>
+    <div class="products">
+      <div class="product">
+        <img src="https://i.ibb.co/3CcSx3s/laneige-lipmask.jpg" alt="Lip Sleeping Mask">
+        <p>Lip Sleeping Mask</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/zRwW1Bk/laneige-waterbank.jpg" alt="Water Bank Cream">
+        <p>Water Bank Cream</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/ggRk8Zt/laneige-toner.jpg" alt="Cream Skin Toner">
+        <p>Cream Skin Toner</p>
+      </div>
+    </div>
+  </div>
 
-  <footer>© 2025 K-Beauty Luxe | Radiance Redefined 🌸</footer>
+  <!-- Etude House -->
+  <div class="brand">
+    <h2>Etude House</h2>
+    <div class="products">
+      <div class="product">
+        <img src="https://i.ibb.co/pKtxNn8/etude-tint.jpg" alt="Dear Darling Tint">
+        <p>Dear Darling Tint</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/TKMfLxN/etude-collagen.jpg" alt="Collagen Cream">
+        <p>Moistfull Collagen Cream</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/ypWRDhz/etude-eyes.jpg" alt="Eyes Palette">
+        <p>Play Color Eyes Palette</p>
+      </div>
+    </div>
+  </div>
 
-  <script>
-    const products = [
-      {
-        name: "Innisfree",
-        category: "Skincare",
-        collections: ["Green Tea Seed Serum", "Jeju Volcanic Pore Clay Mask", "Orchid Enriched Cream"],
-        image: "https://www.innisfree.com/kr/ko/resources/img/product/2023/greentea-serum.jpg"
-      },
-      {
-        name: "Laneige",
-        category: "Lip Care",
-        collections: ["Lip Sleeping Mask", "Water Bank Cream", "Cream Skin Toner"],
-        image: "https://www.laneige.com/kr/ko/resources/img/product/lip-sleeping-mask.jpg"
-      },
-      {
-        name: "Etude House",
-        category: "Makeup",
-        collections: ["Dear Darling Tint", "Moistfull Collagen Cream", "Play Color Eyes Palette"],
-        image: "https://img.etude.com/kr/en/resources/img/product/etude-dear-darling-tint.jpg"
-      },
-      {
-        name: "Sulwhasoo",
-        category: "Skincare",
-        collections: ["First Care Activating Serum", "Concentrated Ginseng Cream", "Essential Balancing Water"],
-        image: "https://www.sulwhasoo.com/kr/en/resources/img/product/first-care-activating-serum.jpg"
-      },
-      {
-        name: "Dr. Jart+",
-        category: "Skincare",
-        collections: ["Cicapair Tiger Grass Cream", "Ceramidin Cream", "Hydra Solution Mask"],
-        image: "https://us.drjart.com/cdn/shop/products/cicapair-tiger-grass-cream.jpg"
-      }
-    ];
+  <!-- Sulwhasoo -->
+  <div class="brand">
+    <h2>Sulwhasoo</h2>
+    <div class="products">
+      <div class="product">
+        <img src="https://i.ibb.co/w04R8MS/sulwhasoo-firstcare.jpg" alt="First Care Serum">
+        <p>First Care Serum</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/5LmhMbp/sulwhasoo-ginseng.jpg" alt="Ginseng Cream">
+        <p>Ginseng Cream</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/bNkt3Yr/sulwhasoo-water.jpg" alt="Balancing Water">
+        <p>Balancing Water</p>
+      </div>
+    </div>
+  </div>
 
-    const grid = document.getElementById("grid");
+  <!-- Dr. Jart+ -->
+  <div class="brand">
+    <h2>Dr. Jart+</h2>
+    <div class="products">
+      <div class="product">
+        <img src="https://i.ibb.co/cyhvK7r/drjart-cicapair.jpg" alt="Cicapair Cream">
+        <p>Cicapair Cream</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/5Kc6PfM/drjart-ceramidin.jpg" alt="Ceramidin Cream">
+        <p>Ceramidin Cream</p>
+      </div>
+      <div class="product">
+        <img src="https://i.ibb.co/1zhTT7W/drjart-mask.jpg" alt="Hydra Mask">
+        <p>Hydra Solution Mask</p>
+      </div>
+    </div>
+  </div>
 
-    function renderGrid(category="all") {
-      grid.innerHTML = "";
-      products.forEach(product => {
-        if (category === "all" || product.category === category) {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <div class="card-content">
-              <h3>${product.name}</h3>
-              <ul>${product.collections.map(c => `<li>${c}</li>`).join("")}</ul>
-            </div>
-          `;
-          grid.appendChild(card);
-        }
-      });
-    }
-
-    function filterProducts(category) {
-      renderGrid(category);
-    }
-
-    renderGrid();
-  </script>
+  <footer>© 2025 K-Beauty Dashboard | Glow Like Korea ✨</footer>
 </body>
 </html>
