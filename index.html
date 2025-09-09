@@ -8,141 +8,119 @@
     body {
       margin: 0;
       font-family: "Segoe UI", sans-serif;
-      background: #f5f6fa;
-      color: #2f3640;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
     }
-    header {
-      background: #353b48;
+    /* Sidebar */
+    .sidebar {
+      background: #2f3640;
       color: white;
-      padding: 1rem 2rem;
+      width: 260px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-      font-size: 1.8rem;
+    .artist {
+      padding: .6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s;
     }
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+    .artist:hover, .artist.active {
+      background: #40739e;
+    }
+    /* Main content */
+    .content {
+      flex: 1;
+      background: #f5f6fa;
       padding: 2rem;
+      overflow-y: auto;
     }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .artist-name {
-      font-size: 1.2rem;
+    .artist-title {
+      font-size: 1.6rem;
       font-weight: bold;
-      margin-bottom: .5rem;
+      margin-bottom: 1rem;
     }
     .collection-list {
-      margin: 0;
-      padding: 0;
-      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
     }
-    .collection-list li {
-      background: #f0f0f0;
-      margin: .3rem 0;
-      padding: .5rem;
-      border-radius: 6px;
+    .collection {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    .collection:hover {
+      transform: translateY(-4px);
+      transition: 0.2s;
     }
     footer {
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
+      padding: 0.8rem;
       background: #dcdde1;
       font-size: 0.9rem;
-    }
-    .search-box {
-      display: flex;
-      justify-content: center;
-      margin: 1rem 0;
-    }
-    .search-box input {
-      width: 60%;
-      padding: .7rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Manga Artists & Collections Dashboard</h1>
-  </header>
-
-  <div class="search-box">
-    <input type="text" id="search" placeholder="Search by artist or manga title...">
+  <div class="sidebar">
+    <h2>Manga Artists</h2>
+    <div id="artistList"></div>
   </div>
 
-  <div class="dashboard" id="dashboard">
-    <!-- Cards will be injected here by JavaScript -->
+  <div class="content">
+    <div id="artistDetails">
+      <p>Select an artist from the left panel to view their collections.</p>
+    </div>
+    <footer>© 2025 Manga Dashboard | Sidebar Layout</footer>
   </div>
-
-  <footer>
-    © 2025 Manga Dashboard | Built with HTML, CSS & JS
-  </footer>
 
   <script>
     const artists = [
-      {
-        name: "Eiichiro Oda",
-        collections: ["One Piece", "Wanted!", "Romance Dawn"]
-      },
-      {
-        name: "Masashi Kishimoto",
-        collections: ["Naruto", "Boruto (Supervision)", "Mario"]
-      },
-      {
-        name: "Hajime Isayama",
-        collections: ["Attack on Titan", "Heart Break One", "Orz"]
-      },
-      {
-        name: "Rumiko Takahashi",
-        collections: ["Inuyasha", "Ranma ½", "Maison Ikkoku", "Urusei Yatsura"]
-      },
-      {
-        name: "Kentaro Miura",
-        collections: ["Berserk", "Gigantomakhia"]
-      }
+      { name: "Eiichiro Oda", collections: ["One Piece", "Wanted!", "Romance Dawn"] },
+      { name: "Masashi Kishimoto", collections: ["Naruto", "Boruto (Supervision)", "Mario"] },
+      { name: "Hajime Isayama", collections: ["Attack on Titan", "Heart Break One", "Orz"] },
+      { name: "Rumiko Takahashi", collections: ["Inuyasha", "Ranma ½", "Maison Ikkoku", "Urusei Yatsura"] },
+      { name: "Kentaro Miura", collections: ["Berserk", "Gigantomakhia"] }
     ];
 
-    const dashboard = document.getElementById("dashboard");
-    const searchInput = document.getElementById("search");
+    const artistList = document.getElementById("artistList");
+    const artistDetails = document.getElementById("artistDetails");
 
-    function renderCards(filter="") {
-      dashboard.innerHTML = "";
-      artists.forEach(artist => {
-        if (
-          artist.name.toLowerCase().includes(filter.toLowerCase()) ||
-          artist.collections.some(c => c.toLowerCase().includes(filter.toLowerCase()))
-        ) {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
-            <div class="artist-name">${artist.name}</div>
-            <ul class="collection-list">
-              ${artist.collections.map(c => `<li>${c}</li>`).join("")}
-            </ul>
-          `;
-          dashboard.appendChild(card);
-        }
+    function renderSidebar() {
+      artists.forEach((artist, index) => {
+        const div = document.createElement("div");
+        div.className = "artist";
+        div.textContent = artist.name;
+        div.addEventListener("click", () => showArtist(index, div));
+        artistList.appendChild(div);
       });
     }
 
-    searchInput.addEventListener("input", e => {
-      renderCards(e.target.value);
-    });
+    function showArtist(index, clickedDiv) {
+      document.querySelectorAll(".artist").forEach(el => el.classList.remove("active"));
+      clickedDiv.classList.add("active");
+      const artist = artists[index];
+      artistDetails.innerHTML = `
+        <div class="artist-title">${artist.name}</div>
+        <div class="collection-list">
+          ${artist.collections.map(c => `<div class="collection">${c}</div>`).join("")}
+        </div>
+      `;
+    }
 
-    renderCards();
+    renderSidebar();
   </script>
 </body>
 </html>
