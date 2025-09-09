@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>K-Beauty Dashboard</title>
+  <title>K-Beauty Luxe Dashboard</title>
 
   <!-- Korean-inspired font -->
   <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
@@ -12,38 +12,56 @@
     body {
       margin: 0;
       font-family: "Nanum Myeongjo", serif;
-      background: linear-gradient(to right, #fff5f8, #fce4ec);
+      background: linear-gradient(to right, #fff0f5, #fce4ec);
       color: #333;
     }
-    header {
+
+    /* Hero Section */
+    .hero {
+      background: url("https://i.ibb.co/6Ph2jcn/kbeauty-banner.jpg") center/cover no-repeat;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 2rem;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #ad1457;
-      background: #f8bbd0;
-      letter-spacing: 2px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      color: white;
+      position: relative;
     }
-    .search-box {
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(174, 0, 81, 0.4);
+    }
+    .hero h1 {
+      position: relative;
+      font-size: 2.8rem;
+      z-index: 2;
+      letter-spacing: 3px;
+    }
+
+    /* Filter buttons */
+    .filters {
       text-align: center;
-      margin: 1.5rem;
+      margin: 2rem 0;
     }
-    .search-box input {
-      width: 60%;
-      padding: .8rem;
+    .filters button {
+      padding: 0.7rem 1.5rem;
+      margin: 0.3rem;
+      border: none;
       border-radius: 25px;
-      border: 2px solid #f48fb1;
+      background: #f8bbd0;
+      color: #880e4f;
       font-size: 1rem;
-      outline: none;
-      text-align: center;
+      cursor: pointer;
       transition: 0.3s;
-      background: #fff;
     }
-    .search-box input:focus {
-      border-color: #c2185b;
-      box-shadow: 0 0 8px #f06292;
+    .filters button:hover {
+      background: #ec407a;
+      color: white;
     }
+
+    /* Product Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -53,20 +71,20 @@
       padding: 2rem;
     }
     .card {
-      background: #fff;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.8);
       border-radius: 15px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       transition: transform 0.3s, box-shadow 0.3s;
-      border: 1px solid #f8bbd0;
     }
     .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     }
     .card img {
       width: 100%;
-      height: 240px;
+      height: 220px;
       object-fit: cover;
     }
     .card-content {
@@ -74,8 +92,8 @@
       text-align: center;
     }
     .card-content h3 {
-      margin: 0 0 0.8rem 0;
-      color: #880e4f;
+      margin: 0.5rem 0;
+      color: #ad1457;
     }
     .card-content ul {
       list-style: none;
@@ -87,9 +105,10 @@
       margin: 0.3rem 0;
       padding: 0.5rem;
       border-radius: 6px;
-      color: #333;
       font-size: 0.9rem;
+      color: #333;
     }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -102,55 +121,64 @@
   </style>
 </head>
 <body>
-  <header>K-Beauty Product Dashboard</header>
-
-  <div class="search-box">
-    <input type="text" id="search" placeholder="🔍 Search brand or product...">
+  <!-- Hero Banner -->
+  <div class="hero">
+    <h1>K-Beauty Luxe Collection ✨</h1>
   </div>
 
+  <!-- Filters -->
+  <div class="filters">
+    <button onclick="filterProducts('all')">All</button>
+    <button onclick="filterProducts('Skincare')">Skincare</button>
+    <button onclick="filterProducts('Makeup')">Makeup</button>
+    <button onclick="filterProducts('Lip Care')">Lip Care</button>
+  </div>
+
+  <!-- Product Grid -->
   <div class="grid" id="grid"></div>
 
-  <footer>© 2025 K-Beauty Dashboard | Glow with Confidence ✨</footer>
+  <footer>© 2025 K-Beauty Luxe | Radiance Redefined 🌸</footer>
 
   <script>
     const products = [
       {
         name: "Innisfree",
+        category: "Skincare",
         collections: ["Green Tea Seed Serum", "Jeju Volcanic Pore Clay Mask", "Orchid Enriched Cream"],
-        image: "https://www.innisfree.com/kr/ko/resources/img/product/2023/greentea-serum.jpg"
+        image: "https://i.ibb.co/fv9GcnN/innisfree.jpg"
       },
       {
         name: "Laneige",
+        category: "Lip Care",
         collections: ["Lip Sleeping Mask", "Water Bank Cream", "Cream Skin Toner"],
-        image: "https://www.laneige.com/kr/ko/resources/img/product/2024/lip-sleeping-mask.jpg"
+        image: "https://i.ibb.co/f1DCms2/laneige.jpg"
       },
       {
         name: "Etude House",
+        category: "Makeup",
         collections: ["Dear Darling Tint", "Moistfull Collagen Cream", "Play Color Eyes Palette"],
-        image: "https://www.etude.com/media/catalog/product/etude-dear-darling-tint.jpg"
+        image: "https://i.ibb.co/RHSFB0D/etude.jpg"
       },
       {
         name: "Sulwhasoo",
-        collections: ["First Care Activating Serum", "Concentrated Ginseng Renewing Cream", "Essential Balancing Water"],
-        image: "https://www.sulwhasoo.com/kr/en/resources/img/product/first-care-serum.jpg"
+        category: "Skincare",
+        collections: ["First Care Activating Serum", "Concentrated Ginseng Cream", "Essential Balancing Water"],
+        image: "https://i.ibb.co/zZP1MHR/sulwhasoo.jpg"
       },
       {
         name: "Dr. Jart+",
-        collections: ["Cicapair Tiger Grass Cream", "Ceramidin Cream", "Dermask Soothing Hydra Solution"],
-        image: "https://us.drjart.com/cdn/shop/products/cicapair-cream.jpg"
+        category: "Skincare",
+        collections: ["Cicapair Tiger Grass Cream", "Ceramidin Cream", "Hydra Solution Mask"],
+        image: "https://i.ibb.co/5cB9k1D/drjart.jpg"
       }
     ];
 
     const grid = document.getElementById("grid");
-    const searchInput = document.getElementById("search");
 
-    function renderGrid(filter="") {
+    function renderGrid(category="all") {
       grid.innerHTML = "";
       products.forEach(product => {
-        if (
-          product.name.toLowerCase().includes(filter.toLowerCase()) ||
-          product.collections.some(c => c.toLowerCase().includes(filter.toLowerCase()))
-        ) {
+        if (category === "all" || product.category === category) {
           const card = document.createElement("div");
           card.className = "card";
           card.innerHTML = `
@@ -165,9 +193,9 @@
       });
     }
 
-    searchInput.addEventListener("input", e => {
-      renderGrid(e.target.value);
-    });
+    function filterProducts(category) {
+      renderGrid(category);
+    }
 
     renderGrid();
   </script>
