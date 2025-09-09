@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manga Artists Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f5f6fa;
+      color: #2f3640;
+    }
+    header {
+      background: #353b48;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .artist-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: .5rem;
+    }
+    .collection-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .collection-list li {
+      background: #f0f0f0;
+      margin: .3rem 0;
+      padding: .5rem;
+      border-radius: 6px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      background: #dcdde1;
+      font-size: 0.9rem;
+    }
+    .search-box {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .search-box input {
+      width: 60%;
+      padding: .7rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Manga Artists & Collections Dashboard</h1>
+  </header>
+
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search by artist or manga title...">
+  </div>
+
+  <div class="dashboard" id="dashboard">
+    <!-- Cards will be injected here by JavaScript -->
+  </div>
+
+  <footer>
+    © 2025 Manga Dashboard | Built with HTML, CSS & JS
+  </footer>
+
+  <script>
+    const artists = [
+      {
+        name: "Eiichiro Oda",
+        collections: ["One Piece", "Wanted!", "Romance Dawn"]
+      },
+      {
+        name: "Masashi Kishimoto",
+        collections: ["Naruto", "Boruto (Supervision)", "Mario"]
+      },
+      {
+        name: "Hajime Isayama",
+        collections: ["Attack on Titan", "Heart Break One", "Orz"]
+      },
+      {
+        name: "Rumiko Takahashi",
+        collections: ["Inuyasha", "Ranma ½", "Maison Ikkoku", "Urusei Yatsura"]
+      },
+      {
+        name: "Kentaro Miura",
+        collections: ["Berserk", "Gigantomakhia"]
+      }
+    ];
+
+    const dashboard = document.getElementById("dashboard");
+    const searchInput = document.getElementById("search");
+
+    function renderCards(filter="") {
+      dashboard.innerHTML = "";
+      artists.forEach(artist => {
+        if (
+          artist.name.toLowerCase().includes(filter.toLowerCase()) ||
+          artist.collections.some(c => c.toLowerCase().includes(filter.toLowerCase()))
+        ) {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <div class="artist-name">${artist.name}</div>
+            <ul class="collection-list">
+              ${artist.collections.map(c => `<li>${c}</li>`).join("")}
+            </ul>
+          `;
+          dashboard.appendChild(card);
+        }
+      });
+    }
+
+    searchInput.addEventListener("input", e => {
+      renderCards(e.target.value);
+    });
+
+    renderCards();
+  </script>
+</body>
+</html>
